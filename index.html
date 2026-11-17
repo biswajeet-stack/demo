@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Studio — Digital Product & Brand Design</title>
+
+  <!-- Google Fonts: Space Grotesk (Display) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Configuration & Design Tokens -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            accent: {
+              DEFAULT: 'var(--accent-color)',
+              hover: 'var(--accent-hover)',
+              soft: 'var(--accent-soft)',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Dynamic Accent Variables & Base Accessibility Rules */
+    :root {
+      --accent-color: #2563eb; /* Cobalt Blue - WCAG AAA/AA compliant */
+      --accent-hover: #1d4ed8;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+    }
+
+    html[data-accent="emerald"] {
+      --accent-color: #059669;
+      --accent-hover: #047857;
+      --accent-soft: rgba(5, 150, 105, 0.12);
+    }
+
+    html[data-accent="amber"] {
+      --accent-color: #d97706;
+      --accent-hover: #b45309;
+      --accent-soft: rgba(217, 119, 6, 0.14);
+    }
+
+    html.dark {
+      --accent-color: #60a5fa;
+      --accent-hover: #93c5fd;
+      --accent-soft: rgba(96, 165, 250, 0.16);
+    }
+
+    html.dark[data-accent="emerald"] {
+      --accent-color: #34d399;
+      --accent-hover: #6ee7b7;
+      --accent-soft: rgba(52, 211, 153, 0.16);
+    }
+
+    html.dark[data-accent="amber"] {
+      --accent-color: #fbbf24;
+      --accent-hover: #fcd34d;
+      --accent-soft: rgba(251, 191, 36, 0.16);
+    }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Crisp keyboard focus rings */
+    :focus-visible {
+      outline: 2px solid var(--accent-color);
+      outline-offset: 3px;
+    }
+
+    /* Subtle architectural grid background */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 font-sans antialiased overflow-x-hidden transition-colors duration-200 selection:bg-accent selection:text-white dark:selection:text-zinc-950">
+
+  <!-- Skip to Main Content Link for Keyboard Accessibility -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-3 focus:rounded-xl focus:bg-accent focus:text-white dark:focus:text-zinc-950 focus:font-medium shadow-lg">
+    Skip to main content
+  </a>
+
+  <!-- 1. STICKY MINIMALIST NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 w-full border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/90 dark:bg-zinc-950/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <!-- Brand Wordmark & Geometric Mark -->
+      <a href="#" class="inline-flex items-center gap-3 min-h-[44px] min-w-[44px] rounded-xl group" aria-label="Aura Studio Home">
+        <span class="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-zinc-50 dark:text-zinc-900 flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <polygon points="12 3 21 19 3 19" />
+            <circle cx="12" cy="14" r="2.2" fill="currentColor" />
+          </svg>
+        </span>
+        <span class="font-display font-bold text-xl tracking-tight">Aura Studio</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav aria-label="Primary Navigation" class="hidden md:flex items-center gap-2">
+        <a href="#work" class="px-4 py-2.5 min-h-[44px] inline-flex items-center rounded-xl text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200/60 dark:hover:bg-zinc-800/60 transition-colors">
+          Selected Work
+        </a>
+        <a href="#capabilities" class="px-4 py-2.5 min-h-[44px] inline-flex items-center rounded-xl text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200/60 dark:hover:bg-zinc-800/60 transition-colors">
+          Capabilities
+        </a>
+        <a href="#estimator" class="px-4 py-2.5 min-h-[44px] inline-flex items-center rounded-xl text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200/60 dark:hover:bg-zinc-800/60 transition-colors">
+          Estimator
+        </a>
+        <a href="#contact" class="ml-2 px-5 py-2.5 min-h-[44px] inline-flex items-center justify-center rounded-xl text-sm font-semibold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors">
+          Book Demo
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Toggle Button (44x44px touch target) -->
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open navigation menu"
+        class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200/60 dark:hover:bg-zinc-800/60 transition-colors"
+      >
+        <svg id="menu-icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="17" x2="20" y2="17" />
+        </svg>
+        <svg id="menu-icon-close" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-4 pt-3 pb-5 space-y-2">
+      <a href="#work" class="mobile-nav-link block px-4 py-3 min-h-[44px] rounded-xl text-base font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200/70 dark:hover:bg-zinc-800/70">
+        Selected Work
+      </a>
+      <a href="#capabilities" class="mobile-nav-link block px-4 py-3 min-h-[44px] rounded-xl text-base font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200/70 dark:hover:bg-zinc-800/70">
+        Capabilities
+      </a>
+      <a href="#estimator" class="mobile-nav-link block px-4 py-3 min-h-[44px] rounded-xl text-base font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200/70 dark:hover:bg-zinc-800/70">
+        Project Estimator
+      </a>
+      <a href="#contact" class="mobile-nav-link block px-4 py-3 min-h-[44px] rounded-xl text-base font-semibold text-center bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950">
+        Book a Live Demo
+      </a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- 2. FULL-BLEED MODERN HERO SECTION WITH INTERACTIVE PREVIEW TOGGLE -->
+    <section class="relative w-full bg-grid-pattern border-b border-zinc-200 dark:border-zinc-800 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          
+          <!-- Left Column: Editorial Headline & CTAs -->
+          <div class="lg:col-span-7 space-y-7">
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-zinc-300 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/80 text-xs sm:text-sm font-medium text-zinc-700 dark:text-zinc-300">
+              <span class="w-2 h-2 rounded-full bg-accent"></span>
+              <span>Digital Product &amp; Brand Architecture</span>
+            </div>
+
+            <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.08] text-zinc-950 dark:text-white">
+              We craft high-velocity digital brands and interfaces.
+            </h1>
+
+            <p class="text-base sm:text-lg lg:text-xl text-zinc-700 dark:text-zinc-300 max-w-2xl leading-relaxed">
+              Aura Studio partners with ambitious founders and product teams to engineer resilient design systems, conversion-focused web platforms, and tactile motion identities.
+            </p>
+
+            <!-- Primary & Secondary CTAs (44px+ height) -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
+              <a href="#contact" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 min-h-[48px] rounded-xl font-semibold text-base bg-accent hover:bg-accent-hover text-white dark:text-zinc-950 shadow-sm transition-colors">
+                <span>Start a Project</span>
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+              <a href="#work" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 min-h-[48px] rounded-xl font-semibold text-base border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                <span>Explore Case Studies</span>
+              </a>
+            </div>
+
+            <!-- Key Studio Metrics -->
+            <dl class="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800 max-w-lg">
+              <div>
+                <dt class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">Shipped Products</dt>
+                <dd class="font-display font-bold text-2xl sm:text-3xl text-zinc-950 dark:text-white mt-0.5">64+</dd>
+              </div>
+              <div>
+                <dt class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">Avg. Conversion Lift</dt>
+                <dd class="font-display font-bold text-2xl sm:text-3xl text-zinc-950 dark:text-white mt-0.5">+38%</dd>
+              </div>
+              <div>
+                <dt class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">Design Systems</dt>
+                <dd class="font-display font-bold text-2xl sm:text-3xl text-zinc-950 dark:text-white mt-0.5">WCAG AA</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Right Column: Interactive Live Theme & Surface Studio Control Card -->
+          <div class="lg:col-span-5">
+            <div class="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 sm:p-7 shadow-xl shadow-zinc-900/5 dark:shadow-black/40 space-y-6">
+              <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4">
+                <div>
+                  <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Interactive System</span>
+                  <h2 class="font-display font-bold text-lg text-zinc-950 dark:text-white">Live Theme Sandbox</h2>
+                </div>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-accent-soft text-accent">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  4.5:1+ Contrast
+                </span>
+              </div>
+
+              <!-- Surface Mode Toggle (Light / Dark) -->
+              <div class="space-y-2.5">
+                <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Surface Polarity</label>
+                <div class="grid grid-cols-2 gap-2.5" role="group" aria-label="Surface theme polarity">
+                  <button
+                    type="button"
+                    id="theme-light-btn"
+                    class="min-h-[44px] px-4 py-2.5 rounded-xl border text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors border-zinc-900 bg-zinc-900 text-white dark:border-zinc-700 dark:bg-zinc-800/60 dark:text-zinc-300"
+                  >
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <circle cx="12" cy="12" r="4" />
+                      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                    </svg>
+                    <span>Daylight</span>
+                  </button>
+                  <button
+                    type="button"
+                    id="theme-dark-btn"
+                    class="min-h-[44px] px-4 py-2.5 rounded-xl border text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors border-zinc-300 bg-zinc-50 text-zinc-800 dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-950"
+                  >
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                    <span>Obsidian</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Accent Token Switcher -->
+              <div class="space-y-2.5">
+                <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Brand Accent Token</label>
+                <div class="grid grid-cols-3 gap-2.5" role="group" aria-label="Brand accent color">
+                  <button
+                    type="button"
+                    data-set-accent="cobalt"
+                    class="accent-swatch min-h-[44px] px-3 py-2 rounded-xl border-2 border-accent bg-zinc-50 dark:bg-zinc-800/80 text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 text-zinc-900 dark:text-zinc-100 transition-all"
+                  >
+                    <span class="w-3 h-3 rounded-full bg-blue-600 dark:bg-blue-400"></span>
+                    <span>Cobalt</span>
+                  </button>
+                  <button
+                    type="button"
+                    data-set-accent="emerald"
+                    class="accent-swatch min-h-[44px] px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 text-zinc-900 dark:text-zinc-100 transition-all"
+                  >
+                    <span class="w-3 h-3 rounded-full bg-emerald-600 dark:bg-emerald-400"></span>
+                    <span>Emerald</span>
+                  </button>
+                  <button
+                    type="button"
+                    data-set-accent="amber"
+                    class="accent-swatch min-h-[44px] px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 text-zinc-900 dark:text-zinc-100 transition-all"
+                  >
+                    <span class="w-3 h-3 rounded-full bg-amber-600 dark:bg-amber-400"></span>
+                    <span>Amber</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Mini Component Preview -->
+              <div class="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-4 space-y-3">
+                <div class="flex items-center justify-between text-xs text-zinc-600 dark:text-zinc-400">
+                  <span>Component Token Output</span>
+                  <span class="font-mono text-accent font-semibold" id="active-token-label">var(--accent-cobalt)</span>
+                </div>
+                <div class="w-full h-2.5 rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
+                  <div class="h-full w-3/4 rounded-full bg-accent transition-all duration-300"></div>
+                </div>
+                <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  Toggle modes above to preview real-time semantic color tokens across the entire page.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SELECTED WORK / SHOWCASE GRID WITH FILTERING & MODAL PREVIEW -->
+    <section id="work" class="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="space-y-3">
+          <p class="text-sm font-semibold uppercase tracking-wider text-accent">Selected Work</p>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-zinc-950 dark:text-white">
+            Engineered for clarity and scale.
+          </h2>
+        </div>
+
+        <!-- Category Filter Pills (Minimum 44px touch target) -->
+        <div class="flex flex-wrap items-center gap-2" role="tablist" aria-label="Filter projects by category">
+          <button type="button" role="tab" aria-selected="true" data-filter="all" class="filter-btn min-h-[44px] px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 transition-colors">
+            All
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-filter="Branding" class="filter-btn min-h-[44px] px-4 py-2 rounded-xl text-sm font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200/70 dark:hover:bg-zinc-800 transition-colors">
+            Branding
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-filter="Web Design" class="filter-btn min-h-[44px] px-4 py-2 rounded-xl text-sm font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200/70 dark:hover:bg-zinc-800 transition-colors">
+            Web Design
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-filter="Motion" class="filter-btn min-h-[44px] px-4 py-2 rounded-xl text-sm font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200/70 dark:hover:bg-zinc-800 transition-colors">
+            Motion
+          </button>
+        </div>
+      </div>
+
+      <!-- Showcase Grid -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Cards injected dynamically by JS for clean data management & filtering -->
+      </div>
+    </section>
+
+    <!-- 4. SERVICES / CAPABILITIES BENTO-STYLE GRID -->
+    <section id="capabilities" class="py-20 sm:py-24 border-y border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl space-y-3 mb-12">
+          <p class="text-sm font-semibold uppercase tracking-wider text-accent">Capabilities</p>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-zinc-950 dark:text-white">
+            Full-lifecycle design and front-end engineering.
+          </h2>
+          <p class="text-base sm:text-lg text-zinc-700 dark:text-zinc-300">
+            Modular sprint teams built to take complex products from initial positioning to production code.
+          </p>
+        </div>
+
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+          
+          <!-- Bento Card 1 (Span 4) -->
+          <article class="md:col-span-4 group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-7 sm:p-8 transition-all duration-200 hover:-translate-y-1 hover:border-accent">
+            <div class="w-12 h-12 rounded-xl bg-accent-soft text-accent flex items-center justify-center mb-6 transition-transform duration-200 group-hover:scale-105">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+              </svg>
+            </div>
+            <h3 class="font-display font-bold text-xl sm:text-2xl text-zinc-950 dark:text-white mb-2.5">
+              Multi-Platform Design Systems
+            </h3>
+            <p class="text-zinc-700 dark:text-zinc-300 leading-relaxed max-w-xl mb-5">
+              Tokenized Figma libraries paired with accessible, production-ready UI components. Every component is documented with strict contrast compliance and responsive rules.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">Design Tokens</span>
+              <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">WCAG 2.2 AA</span>
+              <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">Component Architecture</span>
+            </div>
+          </article>
+
+          <!-- Bento Card 2 (Span 2) -->
+          <article class="md:col-span-2 group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-7 sm:p-8 transition-all duration-200 hover:-translate-y-1 hover:border-accent">
+            <div class="w-12 h-12 rounded-xl bg-accent-soft text-accent flex items-center justify-center mb-6 transition-transform duration-200 group-hover:scale-105">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <h3 class="font-display font-bold text-xl text-zinc-950 dark:text-white mb-2.5">
+              Brand Architecture
+            </h3>
+            <p class="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+              Distinctive visual identities, custom typography pairings, and verbal positioning built for category leaders.
+            </p>
+          </article>
+
+          <!-- Bento Card 3 (Span 2) -->
+          <article class="md:col-span-2 group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-7 sm:p-8 transition-all duration-200 hover:-translate-y-1 hover:border-accent">
+            <div class="w-12 h-12 rounded-xl bg-accent-soft text-accent flex items-center justify-center mb-6 transition-transform duration-200 group-hover:scale-105">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </div>
+            <h3 class="font-display font-bold text-xl text-zinc-950 dark:text-white mb-2.5">
+              Motion &amp; Interaction
+            </h3>
+            <p class="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+              Purposeful micro-interactions, WebGL product showcases, and kinetic brand guidelines with reduced-motion fallbacks.
+            </p>
+          </article>
+
+          <!-- Bento Card 4 (Span 4) -->
+          <article class="md:col-span-4 group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-7 sm:p-8 transition-all duration-200 hover:-translate-y-1 hover:border-accent">
+            <div class="w-12 h-12 rounded-xl bg-accent-soft text-accent flex items-center justify-center mb-6 transition-transform duration-200 group-hover:scale-105">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
+            </div>
+            <h3 class="font-display font-bold text-xl sm:text-2xl text-zinc-950 dark:text-white mb-2.5">
+              High-Conversion Web Platforms
+            </h3>
+            <p class="text-zinc-700 dark:text-zinc-300 leading-relaxed max-w-xl mb-5">
+              Sub-second marketing websites and interactive product demos engineered with semantic markup, zero layout shift, and technical SEO baked in from day one.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">99+ Lighthouse Score</span>
+              <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">Interactive Demos</span>
+              <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">Conversion Optimization</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. INTERACTIVE LIVE PROJECT ESTIMATOR MINI-WIDGET -->
+    <section id="estimator" class="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl space-y-3 mb-12">
+        <p class="text-sm font-semibold uppercase tracking-wider text-accent">Scope &amp; Investment</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-zinc-950 dark:text-white">
+          Interactive Project Estimator
+        </h2>
+        <p class="text-base sm:text-lg text-zinc-700 dark:text-zinc-300">
+          Select the deliverables your team needs to see an instant sprint timeline and transparent investment range.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Deliverable Toggles -->
+        <div class="lg:col-span-7 space-y-3.5" id="estimator-options">
+          <button type="button" data-price="6500" data-weeks="2" aria-pressed="true" class="estimator-toggle w-full text-left p-5 min-h-[68px] rounded-2xl border-2 border-accent bg-white dark:bg-zinc-900 flex items-center justify-between gap-4 transition-all">
+            <div>
+              <span class="block font-display font-bold text-base sm:text-lg text-zinc-950 dark:text-white">Brand Identity &amp; Visual Language</span>
+              <span class="block text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">Logo system, typography, color tokens, and brand guidelines</span>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">$6,500</span>
+              <span class="check-indicator w-6 h-6 rounded-lg bg-accent text-white dark:text-zinc-950 flex items-center justify-center">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </span>
+            </div>
+          </button>
+
+          <button type="button" data-price="9500" data-weeks="3" aria-pressed="true" class="estimator-toggle w-full text-left p-5 min-h-[68px] rounded-2xl border-2 border-accent bg-white dark:bg-zinc-900 flex items-center justify-between gap-4 transition-all">
+            <div>
+              <span class="block font-display font-bold text-base sm:text-lg text-zinc-950 dark:text-white">Flagship Marketing Website</span>
+              <span class="block text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">Custom responsive UI/UX design + front-end development</span>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">$9,500</span>
+              <span class="check-indicator w-6 h-6 rounded-lg bg-accent text-white dark:text-zinc-950 flex items-center justify-center">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </span>
+            </div>
+          </button>
+
+          <button type="button" data-price="7500" data-weeks="2" aria-pressed="false" class="estimator-toggle w-full text-left p-5 min-h-[68px] rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 flex items-center justify-between gap-4 transition-all">
+            <div>
+              <span class="block font-display font-bold text-base sm:text-lg text-zinc-950 dark:text-white">Scalable UI Component Library</span>
+              <span class="block text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">Figma token architecture + documented code primitives</span>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">$7,500</span>
+              <span class="check-indicator w-6 h-6 rounded-lg border border-zinc-400 dark:border-zinc-600 text-transparent flex items-center justify-center">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </span>
+            </div>
+          </button>
+
+          <button type="button" data-price="4500" data-weeks="1" aria-pressed="false" class="estimator-toggle w-full text-left p-5 min-h-[68px] rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 flex items-center justify-between gap-4 transition-all">
+            <div>
+              <span class="block font-display font-bold text-base sm:text-lg text-zinc-950 dark:text-white">Motion &amp; Interactive Product Reel</span>
+              <span class="block text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">UI choreography, launch trailer, and interactive micro-animations</span>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">$4,500</span>
+              <span class="check-indicator w-6 h-6 rounded-lg border border-zinc-400 dark:border-zinc-600 text-transparent flex items-center justify-center">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Live Estimate Summary Card -->
+        <div class="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-900 text-zinc-50 dark:bg-zinc-900 p-7 sm:p-8 shadow-xl space-y-6">
+          <div class="flex items-center justify-between border-b border-zinc-800 pb-4">
+            <span class="text-sm font-medium text-zinc-400">Live Sprint Summary</span>
+            <span id="selected-count-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-zinc-200">
+              2 deliverables
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <span class="block text-xs uppercase tracking-wider text-zinc-400">Estimated Investment</span>
+              <span id="estimate-total" class="block font-display font-bold text-3xl sm:text-4xl text-white mt-1">$16,000</span>
+            </div>
+            <div>
+              <span class="block text-xs uppercase tracking-wider text-zinc-400">Delivery Timeline</span>
+              <span id="estimate-timeline" class="block font-display font-bold text-3xl sm:text-4xl text-white mt-1">5 Weeks</span>
+            </div>
+          </div>
+
+          <p class="text-sm text-zinc-300 leading-relaxed">
+            Includes dedicated lead designer, design engineer, weekly async video walkthroughs, and full IP ownership upon completion.
+          </p>
+
+          <button type="button" id="apply-estimate-btn" class="w-full min-h-[48px] px-6 py-3.5 rounded-xl font-semibold text-base bg-accent hover:bg-accent-hover text-white dark:text-zinc-950 transition-colors inline-flex items-center justify-center gap-2">
+            <span>Lock In This Scope</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CLEAN CONTACT / DEMO REQUEST SECTION WITH INLINE VALIDATION -->
+    <section id="contact" class="py-20 sm:py-24 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          <!-- Contact Info -->
+          <div class="lg:col-span-5 space-y-6">
+            <p class="text-sm font-semibold uppercase tracking-wider text-accent">Start a Conversation</p>
+            <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-zinc-950 dark:text-white">
+              Ready to ship your next milestone?
+            </h2>
+            <p class="text-base sm:text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed">
+              Book a 25-minute discovery session with our founding partners. We will review your product goals and share a tailored roadmap within 24 hours.
+            </p>
+
+            <div class="space-y-4 pt-2">
+              <div class="flex items-start gap-3.5">
+                <span class="w-10 h-10 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </span>
+                <div>
+                  <span class="block text-sm font-semibold text-zinc-950 dark:text-white">Direct Studio Desk</span>
+                  <span class="text-sm text-zinc-600 dark:text-zinc-400">hello@aurastudio.design</span>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3.5">
+                <span class="w-10 h-10 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </span>
+                <div>
+                  <span class="block text-sm font-semibold text-zinc-950 dark:text-white">Current Availability</span>
+                  <span class="text-sm text-zinc-600 dark:text-zinc-400">2 sprint slots open for next month</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Demo Request Form -->
+          <div class="lg:col-span-7">
+            <div class="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-6 sm:p-8 shadow-sm">
+              <form id="demo-form" novalidate class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label for="full-name" class="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+                      Full Name <span class="text-red-600 dark:text-red-400" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="full-name"
+                      name="fullName"
+                      required
+                      placeholder="Alex Rivera"
+                      class="w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-950 dark:text-white placeholder:text-zinc-400 focus:border-accent"
+                    />
+                    <p id="error-full-name" class="hidden mt-1.5 text-xs font-medium text-red-600 dark:text-red-400" role="alert">
+                      Please enter your full name.
+                    </p>
+                  </div>
+
+                  <div>
+                    <label for="work-email" class="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+                      Work Email <span class="text-red-600 dark:text-red-400" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="work-email"
+                      name="workEmail"
+                      required
+                      placeholder="alex@company.com"
+                      class="w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-950 dark:text-white placeholder:text-zinc-400 focus:border-accent"
+                    />
+                    <p id="error-work-email" class="hidden mt-1.5 text-xs font-medium text-red-600 dark:text-red-400" role="alert">
+                      Please enter a valid work email address.
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="project-details" class="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+                    Project Scope &amp; Goals <span class="text-red-600 dark:text-red-400" aria-hidden="true">*</span>
+                  </label>
+                  <textarea
+                    id="project-details"
+                    name="projectDetails"
+                    rows="4"
+                    required
+                    placeholder="Tell us about your timeline, target audience, or product goals..."
+                    class="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-950 dark:text-white placeholder:text-zinc-400 focus:border-accent"
+                  ></textarea>
+                  <p id="error-project-details" class="hidden mt-1.5 text-xs font-medium text-red-600 dark:text-red-400" role="alert">
+                    Please share a few details about your project (at least 10 characters).
+                  </p>
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full sm:w-auto min-h-[48px] px-8 py-3.5 rounded-xl font-semibold text-base bg-accent hover:bg-accent-hover text-white dark:text-zinc-950 transition-colors inline-flex items-center justify-center gap-2"
+                >
+                  <span>Request Demo &amp; Proposal</span>
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  </svg>
+                </button>
+              </form>
+
+              <!-- Instant Confirmation Feedback Panel -->
+              <div id="form-success-panel" class="hidden py-6 space-y-4" role="status" aria-live="polite">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                  <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <h3 class="font-display font-bold text-2xl text-zinc-950 dark:text-white">
+                  Demo request received.
+                </h3>
+                <p id="success-message-text" class="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                  Thank you! Our studio lead will send calendar times and a custom brief within one business day.
+                </p>
+                <button type="button" id="reset-form-btn" class="min-h-[44px] px-5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200/60 dark:hover:bg-zinc-800 transition-colors">
+                  Send Another Inquiry
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 7. MINIMAL FOOTER -->
+  <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <span class="w-7 h-7 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-zinc-50 dark:text-zinc-900 flex items-center justify-center">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <polygon points="12 3 21 19 3 19" />
+          </svg>
+        </span>
+        <span class="font-display font-bold text-base text-zinc-950 dark:text-white">Aura Studio</span>
+      </div>
+
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 text-center sm:text-left">
+        &copy; <span id="current-year"></span> Aura Studio LLC. Crafted with accessible design systems.
+      </p>
+
+      <div class="flex items-center gap-2">
+        <a href="#work" class="px-3 py-2 min-h-[44px] inline-flex items-center text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white">Work</a>
+        <a href="#capabilities" class="px-3 py-2 min-h-[44px] inline-flex items-center text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white">Services</a>
+        <a href="#contact" class="px-3 py-2 min-h-[44px] inline-flex items-center text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PROJECT DETAILS MODAL -->
+  <div
+    id="project-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-zinc-950/70 backdrop-blur-sm"
+  >
+    <div class="relative w-full max-w-2xl rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <span id="modal-category" class="inline-block px-3 py-1 rounded-lg text-xs font-semibold bg-accent-soft text-accent mb-2">
+            Category
+          </span>
+          <h3 id="modal-title" class="font-display font-bold text-2xl sm:text-3xl text-zinc-950 dark:text-white">
+            Project Title
+          </h3>
+        </div>
+        <button
+          type="button"
+          id="close-modal-btn"
+          aria-label="Close project preview"
+          class="w-11 h-11 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 flex items-center justify-center shrink-0 transition-colors"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Visual Architectural Banner inside Modal -->
+      <div id="modal-visual" class="w-full h-44 sm:h-52 rounded-xl border border-zinc-200 dark:border-zinc-800 flex items-center justify-center p-6">
+        <!-- Populated dynamically -->
+      </div>
+
+      <div class="space-y-4">
+        <p id="modal-description" class="text-zinc-700 dark:text-zinc-300 leading-relaxed text-base">
+          Description goes here.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+          <div>
+            <span class="block text-xs text-zinc-500 dark:text-zinc-400">Client</span>
+            <span id="modal-client" class="font-semibold text-sm text-zinc-950 dark:text-white">Client Name</span>
+          </div>
+          <div>
+            <span class="block text-xs text-zinc-500 dark:text-zinc-400">Key Outcome</span>
+            <span id="modal-metric" class="font-semibold text-sm text-accent">+42% Signups</span>
+          </div>
+          <div class="col-span-2 sm:col-span-1">
+            <span class="block text-xs text-zinc-500 dark:text-zinc-400">Timeline</span>
+            <span id="modal-duration" class="font-semibold text-sm text-zinc-950 dark:text-white">6 Weeks</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <a href="#contact" id="modal-cta-link" class="min-h-[44px] px-5 py-2.5 rounded-xl font-semibold text-sm bg-accent hover:bg-accent-hover text-white dark:text-zinc-950 inline-flex items-center gap-2 transition-colors">
+          <span>Build Something Similar</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- VANILLA JAVASCRIPT LOGIC -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set current footer year
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+
+      // ==========================================
+      // 1. MOBILE NAVIGATION TOGGLE
+      // ==========================================
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function toggleMobileMenu(forceClose = false) {
+        const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        const shouldOpen = forceClose ? false : !isExpanded;
+
+        mobileMenuBtn.setAttribute('aria-expanded', String(shouldOpen));
+        mobileMenu.classList.toggle('hidden', !shouldOpen);
+        iconOpen.classList.toggle('hidden', shouldOpen);
+        iconClose.classList.toggle('hidden', !shouldOpen);
+      }
+
+      mobileMenuBtn.addEventListener('click', () => toggleMobileMenu());
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => toggleMobileMenu(true));
+      });
+
+      // ==========================================
+      // 2. HERO THEME & ACCENT SANDBOX
+      // ==========================================
+      const htmlEl = document.documentElement;
+      const lightBtn = document.getElementById('theme-light-btn');
+      const darkBtn = document.getElementById('theme-dark-btn');
+      const accentSwatches = document.querySelectorAll('.accent-swatch');
+      const tokenLabel = document.getElementById('active-token-label');
+
+      function setDarkMode(isDark) {
+        htmlEl.classList.toggle('dark', isDark);
+        if (isDark) {
+          darkBtn.className = 'min-h-[44px] px-4 py-2.5 rounded-xl border text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors border-zinc-100 bg-zinc-100 text-zinc-950';
+          lightBtn.className = 'min-h-[44px] px-4 py-2.5 rounded-xl border text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors border-zinc-700 bg-zinc-800/60 text-zinc-300';
+        } else {
+          lightBtn.className = 'min-h-[44px] px-4 py-2.5 rounded-xl border text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors border-zinc-900 bg-zinc-900 text-white';
+          darkBtn.className = 'min-h-[44px] px-4 py-2.5 rounded-xl border text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors border-zinc-300 bg-zinc-50 text-zinc-800';
+        }
+      }
+
+      lightBtn.addEventListener('click', () => setDarkMode(false));
+      darkBtn.addEventListener('click', () => setDarkMode(true));
+
+      accentSwatches.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const accent = btn.getAttribute('data-set-accent');
+          if (accent === 'cobalt') {
+            htmlEl.removeAttribute('data-accent');
+          } else {
+            htmlEl.setAttribute('data-accent', accent);
+          }
+          tokenLabel.textContent = `var(--accent-${accent})`;
+
+          accentSwatches.forEach(s => {
+            s.classList.remove('border-2', 'border-accent');
+            s.classList.add('border', 'border-zinc-300', 'dark:border-zinc-700');
+          });
+          btn.classList.remove('border', 'border-zinc-300', 'dark:border-zinc-700');
+          btn.classList.add('border-2', 'border-accent');
+        });
+      });
+
+      // ==========================================
+      // 3. SELECTED WORK FILTERING & MODAL PREVIEW
+      // ==========================================
+      const projects = [
+        {
+          id: 'kinetix',
+          title: 'Kinetix Cloud OS',
+          category: 'Web Design',
+          client: 'Kinetix Infrastructure',
+          metric: '+44% Enterprise Demos',
+          duration: '6 Weeks',
+          summary: 'A modular web platform and interactive latency calculator built for a distributed cloud compute provider.',
+          description: 'We re-architected Kinetix’s flagship web presence from the ground up, introducing a high-contrast technical design system, interactive benchmark visualizations, and streamlined enterprise onboarding flows.',
+          svgArt: `<svg class="w-28 h-28 text-accent" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="18" y="24" width="84" height="72" rx="12" />
+            <line x1="18" y1="46" x2="102" y2="46" />
+            <circle cx="32" cy="35" r="3" fill="currentColor" />
+            <circle cx="44" cy="35" r="3" fill="currentColor" />
+            <path d="M36 74 L52 58 L66 70 L84 52" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>`
+        },
+        {
+          id: 'monolith',
+          title: 'Monolith Treasury',
+          category: 'Branding',
+          client: 'Monolith Financial',
+          metric: '$48M Series B Raised',
+          duration: '5 Weeks',
+          summary: 'Complete brand identity, geometric monogram, and multi-channel design tokens for an automated treasury platform.',
+          description: 'Monolith needed an authoritative visual identity capable of bridging institutional banking trust with modern API developer velocity. We crafted a custom typographic scale, tactile card packaging, and a comprehensive brand portal.',
+          svgArt: `<svg class="w-28 h-28 text-accent" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="60,16 102,40 102,80 60,104 18,80 18,40" />
+            <polygon points="60,34 86,49 86,71 60,86 34,71 34,49" />
+            <line x1="60" y1="16" x2="60" y2="104" />
+          </svg>`
+        },
+        {
+          id: 'veloce',
+          title: 'Veloce Spatial Audio',
+          category: 'Motion',
+          client: 'Veloce Acoustics',
+          metric: '3.1x Page Engagement',
+          duration: '4 Weeks',
+          summary: 'Kinetic product choreography and interactive soundstage micro-interactions for flagship studio monitors.',
+          description: 'We designed and engineered a fluid, scroll-linked motion language that visualizes acoustic dispersion in real time while maintaining 60fps performance and full reduced-motion accessibility.',
+          svgArt: `<svg class="w-28 h-28 text-accent" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="60" cy="60" r="14" fill="currentColor" fill-opacity="0.2" />
+            <circle cx="60" cy="60" r="28" />
+            <circle cx="60" cy="60" r="42" stroke-dasharray="6 6" />
+          </svg>`
+        }
+      ];
+
+      const projectsGrid = document.getElementById('projects-grid');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+
+      function renderProjects(filterCategory = 'all') {
+        const filtered = filterCategory === 'all'
+          ? projects
+          : projects.filter(p => p.category === filterCategory);
+
+        projectsGrid.innerHTML = filtered.map(project => `
+          <article class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:border-accent shadow-sm">
+            <div>
+              <div class="h-48 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-center p-6 transition-colors group-hover:bg-accent-soft/40">
+                ${project.svgArt}
+              </div>
+              <div class="p-6 sm:p-7 space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-accent-soft text-accent">
+                    ${project.category}
+                  </span>
+                  <span class="text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                    ${project.metric}
+                  </span>
+                </div>
+                <h3 class="font-display font-bold text-xl text-zinc-950 dark:text-white">
+                  ${project.title}
+                </h3>
+                <p class="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                  ${project.summary}
+                </p>
+              </div>
+            </div>
+            <div class="px-6 sm:px-7 pb-6 pt-2">
+              <button
+                type="button"
+                data-project-id="${project.id}"
+                class="open-project-btn w-full min-h-[44px] px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-950 transition-colors inline-flex items-center justify-center gap-2"
+              >
+                <span>Inspect Case Study</span>
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M15 3h6v6M10 14L21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                </svg>
+              </button>
+            </div>
+          </article>
+        `).join('');
+
+        // Attach modal open listeners
+        document.querySelectorAll('.open-project-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const proj = projects.find(p => p.id === btn.getAttribute('data-project-id'));
+            if (proj) openProjectModal(proj);
+          });
+        });
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const category = btn.getAttribute('data-filter');
+          filterBtns.forEach(b => {
+            b.setAttribute('aria-selected', 'false');
+            b.className = 'filter-btn min-h-[44px] px-4 py-2 rounded-xl text-sm font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200/70 dark:hover:bg-zinc-800 transition-colors';
+          });
+          btn.setAttribute('aria-selected', 'true');
+          btn.className = 'filter-btn min-h-[44px] px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 transition-colors';
+          renderProjects(category);
+        });
+      });
+
+      // Initial render
+      renderProjects('all');
+
+      // Modal Controls
+      const projectModal = document.getElementById('project-modal');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+      const modalCtaLink = document.getElementById('modal-cta-link');
+      let lastFocusedElement = null;
+
+      function openProjectModal(project) {
+        lastFocusedElement = document.activeElement;
+        document.getElementById('modal-category').textContent = project.category;
+        document.getElementById('modal-title').textContent = project.title;
+        document.getElementById('modal-visual').innerHTML = project.svgArt;
+        document.getElementById('modal-description').textContent = project.description;
+        document.getElementById('modal-client').textContent = project.client;
+        document.getElementById('modal-metric').textContent = project.metric;
+        document.getElementById('modal-duration').textContent = project.duration;
+
+        projectModal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        closeModalBtn.focus();
+      }
+
+      function closeProjectModal() {
+        projectModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        if (lastFocusedElement) lastFocusedElement.focus();
+      }
+
+      closeModalBtn.addEventListener('click', closeProjectModal);
+      modalCtaLink.addEventListener('click', closeProjectModal);
+      projectModal.addEventListener('click', (e) => {
+        if (e.target === projectModal) closeProjectModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !projectModal.classList.contains('hidden')) {
+          closeProjectModal();
+        }
+      });
+
+      // ==========================================
+      // 4. INTERACTIVE LIVE PROJECT ESTIMATOR
+      // ==========================================
+      const estimatorToggles = document.querySelectorAll('.estimator-toggle');
+      const estimateTotalEl = document.getElementById('estimate-total');
+      const estimateTimelineEl = document.getElementById('estimate-timeline');
+      const selectedCountBadge = document.getElementById('selected-count-badge');
+      const applyEstimateBtn = document.getElementById('apply-estimate-btn');
+
+      function updateEstimate() {
+        let total = 0;
+        let weeks = 0;
+        let count = 0;
+        const selectedNames = [];
+
+        estimatorToggles.forEach(toggle => {
+          const isPressed = toggle.getAttribute('aria-pressed') === 'true';
+          const indicator = toggle.querySelector('.check-indicator');
+          const title = toggle.querySelector('span').textContent;
+
+          if (isPressed) {
+            total += Number(toggle.getAttribute('data-price'));
+            weeks += Number(toggle.getAttribute('data-weeks'));
+            count += 1;
+            selectedNames.push(title);
+
+            toggle.classList.remove('border', 'border-zinc-300', 'dark:border-zinc-700');
+            toggle.classList.add('border-2', 'border-accent');
+            indicator.className = 'check-indicator w-6 h-6 rounded-lg bg-accent text-white dark:text-zinc-950 flex items-center justify-center';
+          } else {
+            toggle.classList.remove('border-2', 'border-accent');
+            toggle.classList.add('border', 'border-zinc-300', 'dark:border-zinc-700');
+            indicator.className = 'check-indicator w-6 h-6 rounded-lg border border-zinc-400 dark:border-zinc-600 text-transparent flex items-center justify-center';
+          }
+        });
+
+        estimateTotalEl.textContent = `$${total.toLocaleString()}`;
+        estimateTimelineEl.textContent = count === 0 ? '0 Weeks' : `${weeks} ${weeks === 1 ? 'Week' : 'Weeks'}`;
+        selectedCountBadge.textContent = `${count} ${count === 1 ? 'deliverable' : 'deliverables'}`;
+
+        return { total, weeks, selectedNames };
+      }
+
+      estimatorToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const current = toggle.getAttribute('aria-pressed') === 'true';
+          toggle.setAttribute('aria-pressed', String(!current));
+          updateEstimate();
+        });
+      });
+
+      // Transfer selected scope directly into the contact form
+      applyEstimateBtn.addEventListener('click', () => {
+        const { total, weeks, selectedNames } = updateEstimate();
+        const detailsField = document.getElementById('project-details');
+        const scopeSummary = selectedNames.length > 0
+          ? `Interested in: ${selectedNames.join(', ')} (Est. $${total.toLocaleString()} / ${weeks} weeks). `
+          : 'Interested in discussing a custom project scope. ';
+
+        detailsField.value = scopeSummary;
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => document.getElementById('full-name').focus(), 400);
+      });
+
+      // ==========================================
+      // 5. CONTACT FORM INLINE VALIDATION & FEEDBACK
+      // ==========================================
+      const demoForm = document.getElementById('demo-form');
+      const successPanel = document.getElementById('form-success-panel');
+      const resetFormBtn = document.getElementById('reset-form-btn');
+
+      const nameInput = document.getElementById('full-name');
+      const emailInput = document.getElementById('work-email');
+      const detailsInput = document.getElementById('project-details');
+
+      const nameError = document.getElementById('error-full-name');
+      const emailError = document.getElementById('error-work-email');
+      const detailsError = document.getElementById('error-project-details');
+
+      function validateField(input, errorEl, condition) {
+        if (!condition) {
+          errorEl.classList.remove('hidden');
+          input.setAttribute('aria-invalid', 'true');
+          input.classList.add('border-red-600', 'dark:border-red-400');
+          return false;
+        } else {
+          errorEl.classList.add('hidden');
+          input.removeAttribute('aria-invalid');
+          input.classList.remove('border-red-600', 'dark:border-red-400');
+          return true;
+        }
+      }
+
+      demoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const isNameValid = validateField(nameInput, nameError, nameInput.value.trim().length >= 2);
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isEmailValid = validateField(emailInput, emailError, emailRegex.test(emailInput.value.trim()));
+        const isDetailsValid = validateField(detailsInput, detailsError, detailsInput.value.trim().length >= 10);
+
+        if (isNameValid && isEmailValid && isDetailsValid) {
+          document.getElementById('success-message-text').textContent =
+            `Thank you, ${nameInput.value.trim()}. We have sent a confirmation to ${emailInput.value.trim()} and will share available demo slots within 24 hours.`;
+          demoForm.classList.add('hidden');
+          successPanel.classList.remove('hidden');
+        }
+      });
+
+      // Clear inline errors on input
+      nameInput.addEventListener('input', () => validateField(nameInput, nameError, nameInput.value.trim().length >= 2));
+      emailInput.addEventListener('input', () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        validateField(emailInput, emailError, emailRegex.test(emailInput.value.trim()));
+      });
+      detailsInput.addEventListener('input', () => validateField(detailsInput, detailsError, detailsInput.value.trim().length >= 10));
+
+      resetFormBtn.addEventListener('click', () => {
+        demoForm.reset();
+        successPanel.classList.add('hidden');
+        demoForm.classList.remove('hidden');
+        nameInput.focus();
+      });
+    });
+  </script>
+</body>
+</html>
